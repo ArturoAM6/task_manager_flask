@@ -1,0 +1,37 @@
+# Task Manager
+
+A simple task management application built with Flask. Users can register, log in, and manage tasks with features like adding, editing, and marking tasks as complete.
+
+## Requirements
+- Python 3.13.0
+- Flask
+- Flask-WTF
+- SQLAlchemy (optional if using a database)
+- Bootstrap 5
+
+## Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/ArturoAM6/task_manager.git
+   cd task_manager
+   ```
+
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Run the app:
+   ```bash
+   python run.py
+   ```
+
+## Screenshots
+![Login](static/images/login.png)
+![Tasks](static/images/tasks.png)
+
+## Technologies Used
+- Flask
+- HTML, CSS (Bootstrap)
+- SQLAlchemy (if used)

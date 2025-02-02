@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>My Tasks</h2>
+    <a href="{{ url_for('add_task') }}" class="btn btn-primary mb-3">Add Task</a>
+    <ul class="list-group">
+        {% for task in tasks.items %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <strong>{{ task.title }}</strong> - {{ task.description }} ({{ task.priority.value }})
+                {% if task.completed %}
+                <span class="badge bg-success">Completed</span>
+                {% endif %}
+            </div>
+            <div>
+                {% if not task.completed %}
+                <a href="{{ url_for('complete_task', task_id=task.id) }}" class="btn btn-success btn-sm">✔</a>
+                {% endif %}
+                <a href="{{ url_for('edit_task', task_id=task.id) }}" class="btn btn-warning btn-sm">✏</a>
+                <a href="{{ url_for('delete_task', task_id=task.id) }}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this task?')">🗑</a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <!-- Controles de paginación -->
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination">
+            {% if tasks.has_prev %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('tasks', page=tasks.prev_num) }}">Previous</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">Previous</span></li>
+            {% endif %}
+
+            {% for page_num in tasks.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+            {% if page_num %}
+            {% if tasks.page == page_num %}
+            <li class="page-item active"><span class="page-link">{{ page_num }}</span></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('tasks', page=page_num) }}">{{ page_num }}</a>
+            </li>
+            {% endif %}
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">...</span></li>
+            {% endif %}
+            {% endfor %}
+
+            {% if tasks.has_next %}
+            <li class="page-item"><a class="page-link" href="{{ url_for('tasks', page=tasks.next_num) }}">Next</a></li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">Next</span></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endblock %}

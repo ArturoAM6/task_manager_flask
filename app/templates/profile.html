@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Profile</h1>
+    <p>Welcome, <strong>{{ current_user.username }}</strong>!</p>
+    <p>You have <strong>{{ current_user.task|length }}</strong> tasks in total.</p>
+    <a href="{{ url_for('tasks') }}" class="btn btn-primary">View Tasks</a>
+    <a href="{{ url_for('logout') }}" class="btn btn-danger">Log Out</a>
+</div>
+{% endblock %}
